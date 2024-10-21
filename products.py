@@ -1,9 +1,13 @@
 class Product:
     def __init__(self, name ,price ,quantity):
-        self.name = name
-        self.price = price
-        self.quantity = quantity
-        self.active = True
+        try:
+            self.name = str(name)
+            self.price = float(price)
+            self.quantity = int(quantity)
+            self.active = True
+        except ValueError as error:
+            print(f"Wrong values for parameter used Error: {error}")
+
 
 
     def get_quantity(self):
@@ -28,10 +32,15 @@ class Product:
 
 
     def buy(self, quantity):
-        stock_check = self.quantity - quantity
+        try:
+            stock_check = self.quantity - quantity
+        except ValueError as error:
+            print(f"No valid quantity added. Error {error}")    
         if stock_check >=0:
             self.quantity = stock_check
-            return f"Purchase of {quantity}*{self.name} for {quantity * self.price}"
+            return f"Purchase of {quantity}*{self.name} for {quantity * self.price} placed"
+        else:
+            return f"Cant complete order for {self.name}. Order volume {quantity} higher than stock quantity {self.quantity}"    
 
 
 bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
