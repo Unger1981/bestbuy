@@ -12,6 +12,7 @@ class Store:
     list_of_products = []
     items_in_store = 0
 
+
     def __init__(self, products=None):
         """
         Initializes a store instance with an optional list of products.
@@ -23,8 +24,10 @@ class Store:
             if products is not None:
                 for product in products:
                     self.list_of_products.append(product)
+                    self.items_in_store += product.quantity
         except ValueError as e:
-            print(f"The parameter is not valid for class creation. Error: {e}")            
+            print(f"The parameter is not valid for class creation. Error: {e}")  
+
 
     def add_product(self, product):
         """
@@ -40,6 +43,7 @@ class Store:
         except AttributeError as error:  
             print(f"Product is missing required attributes. Error: {error}")
 
+
     def remove_product(self, product):
         """
         Removes a product from the store if it exists.
@@ -53,6 +57,7 @@ class Store:
         else:
             print(f"{product} not found in store")
 
+
     def get_total_quantity(self):
         """
         Returns the total number of items in the store.
@@ -61,7 +66,8 @@ class Store:
         int: The total quantity of all products in the store.
         """
         return self.items_in_store
-
+    
+                                     
     def get_all_products(self): 
         """
         Returns a list of all active products in the store.
@@ -76,7 +82,8 @@ class Store:
                     list_active_products.append(product)
         except:  
             print("No active products found.")          
-        return list_active_products        
+        return list_active_products     
+       
 
     def order(self, shopping_list):
         """
@@ -91,12 +98,21 @@ class Store:
         total_price = 0
         try:
             for product, quantity in shopping_list:
-                if product in self.list_of_products:
-                    product.buy(quantity)
-                    self.items_in_store -= quantity
-                    total_price += product.price * quantity
+                if product in self.list_of_products: 
+                    if quantity <= product.quantity:
+                        purchase_confirm = product.buy(quantity)
+                        self.items_in_store -= quantity
+                        total_price += product.price * quantity
+                        print(purchase_confirm)
+                    else:
+                        error_message= product.buy(quantity)
+                        print(error_message)    
                 else:  
-                    print("Product not found in stock")
+                    print(f"Product {product} not found in stock")
         except ValueError as e:
             print(f"Wrong product and/or quantity entered during order. Error: {e}")
-        return total_price
+        return f"Total price of purchase: {total_price}"
+
+
+
+

@@ -1,13 +1,6 @@
 from products import Product
 from store import Store
 
-product_list = [
-    Product("MacBook Air M2", price=1450, quantity=100),
-    Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-    Product("Google Pixel 7", price=500, quantity=250)
-]
-
-
 def main():
     """
     Initializes the store with a list of products and starts the menu loop.
@@ -15,11 +8,22 @@ def main():
     Creates a Store instance using the product_list and passes it to the start() function
     for user interaction.
     """
+
+    product_list = [
+        Product("MacBook Air M2", price=1450, quantity=100),
+        Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+        Product("Google Pixel 7", price=500, quantity=250)
+    ]
+    
     best_buy = Store(product_list)
-    start(best_buy)
+
+    shopping_cart = [(product_list[0], 1), (product_list[1], 1)]
+
+    start(best_buy,shopping_cart)
+   
 
 
-def start(store_object):
+def start(store_object, shopping_cart):
     """
     Provides a menu for interacting with the store and handles user input.
     
@@ -39,11 +43,15 @@ def start(store_object):
             continue
         
         if menu_user_input == 1:
-            print("1: Listing all products...")
+            products = store_object.get_all_products()
+            for index, product in enumerate(products,1):
+                print(f"{index} {product.name} * {product.quantity} units")
         elif menu_user_input == 2:
-            print("2: Showing total amount in store...")
+            total_amount = store_object.get_total_quantity()
+            print(f"Total_amount in store {total_amount} units")
         elif menu_user_input == 3:
-            print("3: Making an order...")
+            order_sum = store_object.order(shopping_cart)
+            print(order_sum)
         elif menu_user_input == 4:
             print("4: Exiting program...")
             break

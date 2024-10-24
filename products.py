@@ -88,10 +88,12 @@ class Product:
         """
         try:
             stock_check = self.quantity - quantity
-        except ValueError as error:
-            print(f"No valid quantity added. Error {error}")    
+        except ValueError as e:
+            print("Unvalid quantity parameter used.Error: {e}")    
         if stock_check >=0:
             self.quantity = stock_check
             return f"Purchase of {quantity}*{self.name} for {quantity * self.price} placed"
         else:
             return f"Cant complete order for {self.name}. Order volume {quantity} higher than stock quantity {self.quantity}"    
+
+
