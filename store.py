@@ -97,6 +97,7 @@ class Store:
         """
         total_price = 0
         try:
+
             for product, quantity in shopping_list:
                 if product in self.list_of_products: 
                     if quantity <= product.quantity:
@@ -112,7 +113,6 @@ class Store:
         except ValueError as e:
             print(f"Wrong product and/or quantity entered during order. Error: {e}")
         return f"Total price of purchase: {total_price}"
-
 
 
 
