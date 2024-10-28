@@ -18,6 +18,12 @@ class Product:
         price (float): The price of the product.
         quantity (int): The quantity available for the product.
         """
+        if not name:
+            raise ValueError("Product name cannot be empty")
+        if price <= 0:
+            raise ValueError("Price must be positive")
+        if quantity <1:
+            raise ValueError("Min Quantity is 1")
         try:
             self.name = str(name)
             self.price = float(price)
@@ -45,7 +51,8 @@ class Product:
         Parameters:
         quantity (int): The new quantity to set.
         """
-        if quantity <=0:
+        self.quantity -= quantity
+        if self.quantity <=0:
             self.active = False
 
 
@@ -94,6 +101,7 @@ class Product:
             self.quantity = stock_check
             return f"Purchase of {quantity}*{self.name} for {quantity * self.price} placed"
         else:
+            raise ValueError("Stock quantity not sufficient")
             return f"Cant complete order for {self.name}. Order volume {quantity} higher than stock quantity {self.quantity}"    
 
 
