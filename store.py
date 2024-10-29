@@ -106,8 +106,8 @@ class Store:
                         total_price += product.price * quantity
                         print(purchase_confirm)
                     else:
-                        error_message= product.buy(quantity)
-                        print(error_message)    
+                        
+                        print("Stock not sufficient for order quantity")    
                 else:  
                     print(f"Product {product} not found in stock")
         except ValueError as e:
