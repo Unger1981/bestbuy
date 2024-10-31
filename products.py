@@ -345,6 +345,6 @@ class LimitedProduct(Product):
             else:
                 return f"Purchase of {quantity}*{self.name} for {quantity * self.price} placed"
         else:
-            raise ValueError (f"Cant complete order for {self.name}. Order volume {quantity} higher than stock quantity ") 
+            raise ValueError (f"Cant complete order for {self.name}. \nOrder volume {quantity} higher than stock quantity or maximum {self.maximum} ") 
         
 

@@ -113,6 +113,7 @@ class Store:
                     print(f"Product {product} not found in stock")
             print(f"Total amount = {total_price}")        
         except ValueError as e:
+            print(f"Total amount = {total_price}")
             print(f"Wrong product and/or quantity entered during order. Error: {e}")
     
 
